@@ -5,7 +5,8 @@ async function getPokemons(){
     const loading = document.querySelector(".loading")
     const pokemons = await fetch(`https://pokeapi.co/api/v2/pokemon/?limit=500&offset=20`)
 
-    .then (res => res.json()) 
+    .then (res => res.json())
+    // .then(res => console.log(res.results)) 
     .catch(error => console.log(error))
 
     loading.classList.add("hidden")
@@ -14,52 +15,36 @@ async function getPokemons(){
 
 // --------------------------------------------------------
 
-async function getPokemonByName(name){
-    
-    const listaDePokemons = await getPokemons()
-    
-    
-    console.log(listaDePokemons.results)
-    
-    
-    
-    listaDePokemons.results.forEach(pokemon => { 
-        const numeroNaPokedex = pokemon.url.slice(34,-1)
-        // let pokemonID = listaDePokemons.results[numeroNaPokedex].name
 
-        
-        console.log(pokemon.name)
-        if(  name == listaDePokemons.results[numeroNaPokedex].name)
-        {
-            ul.innerHTML = ""
 
-            ul.insertAdjacentHTML("beforeend" ,`
-            <li class = "card__container"> 
-                <img src = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${numeroNaPokedex}.png" alt=${pokemon.name} >
-            
-            <h3>${pokemon.name}</h3>
-            </li>
-            `
-            )
-        }
-    })
-
-    
-}
-
-// ------------------------------------------------------------------ USAR O ADJACENT HTML NA FUNÇÃO ABAIXO; USAR A FUNÇÃO ACIMA APENAS PRA CAPTURAR O PKMN PELO NOME
-
-function renderPkmnByName(){
-    const searchInput = document.querySelector("input").value
+async function renderPkmnByName(){
+    const searchInput = document.querySelector("#poke__input")
     const button = document.querySelector("button")
 
-    button.addEventListener("click", (element) => {
-        
-        getPokemonByName(searchInput.toLocaleLowerCase().trim())
-    })
 
+    button.addEventListener("click", async (element) => {
+        element.preventDefault
+        if(searchInput.value == ""){
+            createCard()
+        } else{
+
+        const pokemonPesquisado = await fetch(`https://pokeapi.co/api/v2/pokemon/${searchInput.value}`)
+
+        .then(res => res.json())
+        .catch(error => console.log(error))
+        ul.innerHTML = ""
+        ul.insertAdjacentHTML("beforeend" ,`
+        <li class = "card__container"> 
+            <img src = ${pokemonPesquisado.sprites.front_default} alt=${pokemonPesquisado.name} >
+        
+        <h3>${pokemonPesquisado.name}</h3>
+        </li>
+        `
+        )
+    }
+    
+    })  
 }
 
 renderPkmnByName()
 
-console.log(document.querySelector("input"))

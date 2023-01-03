@@ -22,14 +22,14 @@ async function createCard (){
 createCard()
 
 
-async function teste(){
-    const listaDePokemons = await getPokemons()
+// async function teste(){
+//     const listaDePokemons = await getPokemons()
 
-    let resultado = listaDePokemons.results[0].name
+//     let resultado = listaDePokemons.results[0].name
 
-    return console.log(resultado)
+//     return console.log(resultado)
 
-}
+// }
 
-teste()
+// teste()
 
