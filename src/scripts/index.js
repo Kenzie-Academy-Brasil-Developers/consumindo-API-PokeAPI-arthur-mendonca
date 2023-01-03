@@ -1,4 +1,4 @@
-/* Monte sua lógica aqui */
+
 
 const ul = document.querySelector(".main__list")
 
@@ -22,14 +22,5 @@ async function createCard (){
 createCard()
 
 
-// async function teste(){
-//     const listaDePokemons = await getPokemons()
 
-//     let resultado = listaDePokemons.results[0].name
-
-//     return console.log(resultado)
-
-// }
-
-// teste()
 
